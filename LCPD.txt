@@ -1,0 +1,29 @@
+Phase I — Geometric initialization
+ExtractChristoffelSymbols(g_μν)
+Γ^λ_μν = ½ g^λσ (∂_μ g_νσ + ∂_ν g_μσ − ∂_σ g_μν)
+define algorithmic mass m, risk-aversion β
+Phase II — Proper-time integration loop ∀ dτ ∈ [0, T]
+Step 1: Dual Regret Propagation
+□_g Φ = κ · Tr(T_μν)
+Φ_new = Φ_old + ∇Φ · dτ // Jacobi gradient descent
+Step 2: Unitary evolution of primal density
+Û = exp(−i/ℏ [−∇²_g/2m + βΦ] dτ)
+Ψ(τ+dτ) = Û · Ψ(τ)
+Step 3: Lorentzian causal filtering
+ℛ = {x ∈ M | s²(x_curr, x) ≤ 0} // future light-cone
+Ψ_filt = Norm(P_ℛ[Ψ])
+Step 4: State realization (Born-rule measurement)
+dV_g = √(−g) d⁴x
+P(x) = |Ψ(x)|² dV_g // collapse to Sτ
+Step 5: Non-local adversary compensation [Adaptive-Offline]
+// Squeeze transformation for entanglement
+Ψ = cosh(r)Ψ + e^{iθ} sinh(r)Ψ†
+
+
+
+Inputs:-
+Metric g_μν
+Request Tensor T_μν
+Information velocity c
+
+Returns:-  Trajectory γ = {S₀, S₁, …, Sₜ}
