@@ -1,0 +1,27 @@
+Initialization
+// Wavepacket spread from uncertainty principle
+Ψ with spread σ = √(ℏ/m)
+Step 1 — Metric variance computation
+δg_μν = g_μν − η_μν // deviation from Minkowski flat metric
+Step 2 — Geodesic deviation mapping
+// Jacobi equation: sensitivity of nearby geodesics
+D²η^μ/Dτ² + R^μ_νρσ u^ν η^ρ u^σ = 0
+// R^μ_νρσ measures tidal divergence (instability)
+Step 3 — Conditional entropy injection
+if |Deviation| > Threshold then
+// Expand wavepacket via unitary rotation
+χ ← exp(−iθ σ_z) // inject randomness
+Ψ → Ψ + ε · (spacelike separated states)
+end if
+Step 4 — Path selection
+// Sample next state from modified Born rule
+S_next ~ |Ψ|² · exp(−∫ ℒ dτ) // weighted by action
+return S_next
+
+
+
+Inputs:-
+Curvature tensor R_μν
+Deterministic path γ_det
+
+Returns:- Randomized state S_next
