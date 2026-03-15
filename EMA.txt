@@ -1,0 +1,24 @@
+Phase 1 — Horizon mapping
+// Construct holographic screen at boundary of J⁺
+κ = √(−½ ∇_μ χ_ν ∇^μ χ^ν) // surface gravity of request horizon
+Phase 2 — Dual entropy calculation
+H_c = ∫_𝒮 ρ log ρ dA // causal entropy flux over screen
+IdentifyInformationBottleneck() // where null-cone narrows
+Phase 3 — Variational optimization
+// Euler-Lagrange on modified action
+δ ∫ √(g_μν ẋ^μ ẋ^ν + α Ḣ_c) dτ = 0
+Phase 4 — Unitary state diffusion
+Ψ(τ+dτ) = exp(−i Ĥ_eff dτ) Ψ(τ)
+F = E − α H_c // Helmholtz free energy
+S_next = argmin_x F(x) // minimize over causal future
+return S_next
+
+
+
+Inputs:-
+Metric g_μν
+Request stream σ
+Entropy weight α
+
+
+Returns:- Trajectory point S_next
