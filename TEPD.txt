@@ -1,0 +1,25 @@
+Step 1 — Curvature gradient detection
+R = g^μν R_μν // local Ricci scalar
+if R > R_crit then ⚠ Singularity alert
+W = ∫_H dx // barrier width estimate
+Step 2 — Energy level calibration
+E_alg = Tr(ρ · Ĥ) // current energy
+V_max = max(T₀₀) // barrier height
+Step 3 — Stochastic tunneling decision
+Θ = ∫ √(V − E) dx // WKB phase integral
+ξ ~ Uniform[0, 1]
+if ξ < exp(−2Θ/ℏ) then
+// Quantum jump: tunnel across spacelike gap
+Ψ_new = T̂_{x₁→x₂} Ψ_old → return S_x₂
+else
+return S_geo // standard geodesic step
+
+
+Inputs:-
+Metric g_μν
+Singularity map 𝒮
+Tunneling vector v_jump
+
+
+
+Returns:- Non-local state S_x₂ | Geodesic fallback S_geo
