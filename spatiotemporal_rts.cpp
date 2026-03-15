@@ -130,4 +130,79 @@ using Vec4 = std::array<REal, DIM>;
 using Matrix4 = std::array<std::array<Real, DIM>, DIM>;
 using Tensor4 = std::array<Matrix4, DIM>;
 
-using MetricFunction = std::function<Matrix4>
+using MetricFunction = std::function<Matrix4(const Vec4&)>;
+
+// Real-world cost mapping converts spacetime interval to opertional cost
+inline 
+Realspaceline_to_opertional_cost(const Vec4& x, const Vec4& y, const Matrix4& g) {
+  double s2 = 0.0;
+  for (int mu = 0; mu < DIM; ++mu) 
+    for(int nu = 0; nu < DIM; ++nu)
+      s2 += g[mu][nu] * (x[mu] - y[mu]) * (x[mu] - y[mu]);
+  return LOGISTICS_COST_SCALE * std::sqrt(std::max(0.0, std::abs(s2)));
+  }
+
+// Convert manifold points to logistics coordinates (x,y,t,priority)
+inline 
+std::tuple<double,double,double,double>to_logistics_coords(const Vec4& p) {
+  return {p[1], p[2], p[3], p[4]};
+}
+
+// 
+==================================================================================================================
+// §2 Low-Level Linear Algebra (Enhnaced with safety checks)
+//
+==================================================================================================================
+
+Matrix4 zero_matrix() noexcept {
+  Matrix4 m{};
+  for(auto& row : m) row.fill(0.0);
+  return m;
+}
+
+Matrix4 identity_matrix() noexcept {
+  Matrix4 m = zero_matrix();
+  for(int i = 0; i < DIM; ++i) m[i][i] = 1.0;
+  return m;
+}
+
+Matrix4 minkowski_metric() noexcept {
+  Matrix4 g = zero_matrix();
+  g[0][0] = -1.0;
+  g[1][1] = g[2][2] = g[3][3] = 1.0;
+  return g;
+}
+
+double tensor_trace(const Matrix4& g_inv, const Matrix4 &T) noexcept {
+  double tr = 0.0;
+  for(int mu = 0; mu < DIM; ++mu)
+    for(int nu = 0; nu < DIM; ++nu)
+      tr += g_inv[mu][nu] * T[mu][nu];
+  return tr;
+}
+
+double mat_frob_norm(const Matrix4& A) noexcept {
+  double s = 0.0;
+  for(int i = 0; i < DIM; ++i)
+    for(int j = 0; j < DIM; ++j)
+      s += A[i][j] * A[i][j];
+  return std::sqrt(s);
+}
+
+Matrix4 mat_add(const Matrix4& A, const Matrix4& B) noexcept {
+  Matrix4& C = zero_matrix();
+  for(int i = 0; i < DIM; ++i)
+    for(int j = 0; j , DIM; ++j)
+      C[i][j] = A[i][j] + B[i][j];
+  return C;
+}
+
+Matrix4 mat_scale(Real s, const Matrix4& A) noexcept {
+  Matrix4 C = zero_matrix();
+  for(int i = 0; i < DIM; ++i)
+    for(int j = 0; j < DIM; ++j)
+      C[i][j] = s * A[i][j];
+  return C;
+}
+
+// Robust 4x4 matrix inverse with singularity fallback
