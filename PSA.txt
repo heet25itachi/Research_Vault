@@ -1,0 +1,25 @@
+Phase 1 — Metric fluctuation analysis
+δg_μν = g_μν − ḡ_μν // deviation from mean metric
+R = g^μν R_μν // local Ricci scalar
+Phase 2 — Lyapunov stability check
+// Estimate Lyapunov exponent of cost-geodesic
+if λ_L > 0 then // chaotic / high-cost region
+ζ = β · exp(R) // squeeze parameter
+end if
+Phase 3 — Unitary entropy injection
+θ = ∮_γ A_μ dx^μ // non-local phase shift (Berry phase)
+Û_corr = exp(−iθ Q̂)
+Ψ → Ψ ⊗ |χ⟩ where ⟨χ|χ⟩ = S_BH // Bekenstein-Hawking entropy
+Phase 4 — Spacelike jump mapping
+EvaluateTunnelingProbability(P_tunnel) // cf. TEPD §2.3
+// Project onto future light-cone boundary ∂D⁺
+return γ* // randomized path correction
+
+
+Inputs:-
+Curvature tensor R_μν
+Proper time τ
+Risk-aversion β
+
+
+Returns:- Randomized path correction γ*
